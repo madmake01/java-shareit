@@ -6,9 +6,9 @@ import ru.practicum.shareit.item.dto.ItemCreateDto;
 import ru.practicum.shareit.item.dto.ItemResponseDto;
 import ru.practicum.shareit.item.dto.ItemUpdateDto;
 import ru.practicum.shareit.item.exception.ItemNotFoundException;
+import ru.practicum.shareit.item.mapper.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.repository.ItemRepository;
-import ru.practicum.shareit.item.mapper.ItemMapper;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
 
@@ -50,23 +50,18 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemResponseDto> findByOwner(Long ownerId) {
         userService.getUserOrThrow(ownerId);
-        return itemRepository.findByOwnerId(ownerId).stream()
-                .map(itemMapper::toResponseDto)
-                .toList();
+        return itemMapper.toResponseDtoList(itemRepository.findByOwnerId(ownerId));
     }
 
     @Override
     public List<ItemResponseDto> searchByName(String text) {
-        return itemRepository.findByNameContainingIgnoreCase(text).stream()
-                .map(itemMapper::toResponseDto)
-                .toList();
+        return itemMapper.toResponseDtoList(itemRepository.findByNameContainingIgnoreCase(text));
     }
 
     @Override
     public ItemResponseDto findById(Long itemId) {
         return itemMapper.toResponseDto(getItemOrThrow(itemId));
     }
-
 
     private Item getItemOrThrow(Long itemId) {
         return itemRepository.findById(itemId)
