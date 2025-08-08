@@ -14,8 +14,6 @@ import ru.practicum.shareit.user.model.User;
 public interface UserMapper {
     User toEntity(UserCreateRequestDto userCreateRequestDto);
 
-    User toEntity(Long id, UserUpdateRequestDto userUpdateRequestDto);
-
     UserResponseDto toResponseDto(User user);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

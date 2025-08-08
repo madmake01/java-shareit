@@ -42,7 +42,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.toResponseDto(getUserOrThrow(id));
     }
 
-    private User getUserOrThrow(Long id) {
+    @Override
+    public User getUserOrThrow(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with id = %d not found".formatted(id)));
     }
