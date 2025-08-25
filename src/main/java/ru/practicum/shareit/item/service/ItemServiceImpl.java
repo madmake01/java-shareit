@@ -55,7 +55,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemResponseDto> searchByName(String text) {
-        return itemMapper.toResponseDtoList(itemRepository.findByNameContainingIgnoreCase(text));
+        return itemMapper.toResponseDtoList(itemRepository.findItemsByNameContainingIgnoreCaseAndAvailable(text, true));
     }
 
     @Override
