@@ -2,8 +2,6 @@ services:
   db:
     image: postgres
     restart: always
-    env_file:
-      - .env
     environment:
       POSTGRES_USER: ${DB_CONNECTION_USERNAME:-root}
       POSTGRES_PASSWORD: ${DB_CONNECTION_PASSWORD:-defaultpassword}

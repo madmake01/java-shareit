@@ -63,7 +63,8 @@ public class ItemServiceImpl implements ItemService {
         return itemMapper.toResponseDto(getItemOrThrow(itemId));
     }
 
-    private Item getItemOrThrow(Long itemId) {
+    @Override
+    public Item getItemOrThrow(Long itemId) {
         return itemRepository.findById(itemId)
                 .orElseThrow(() -> new ItemNotFoundException("Item with id = %d not found".formatted(itemId)));
     }

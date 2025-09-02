@@ -16,7 +16,7 @@ import lombok.Setter;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -30,10 +30,10 @@ public class Booking {
     private Long id;
 
     @Column(name = "start_time", nullable = false)
-    private Instant start;
+    private LocalDateTime start;
 
     @Column(name = "end_time")
-    private Instant end;
+    private LocalDateTime end;
 
     @ManyToOne(optional = false)
     private Item item;
