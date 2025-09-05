@@ -6,6 +6,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.practicum.shareit.booking.exception.BookingNotAvailableException;
+import ru.practicum.shareit.booking.exception.BookingNotFoundException;
+import ru.practicum.shareit.booking.exception.ForbiddenOperationException;
+import ru.practicum.shareit.booking.exception.InvalidBookingStateException;
 import ru.practicum.shareit.item.exception.ItemNotFoundException;
 import ru.practicum.shareit.user.exception.EmailAlreadyExistsException;
 import ru.practicum.shareit.user.exception.UserNotFoundException;
@@ -51,4 +55,33 @@ public class GlobalExceptionHandler {
         problem.setProperty("errors", errors);
         return problem;
     }
+
+    @ExceptionHandler(BookingNotFoundException.class)
+    public ProblemDetail handleBookingNotFound(BookingNotFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        problem.setTitle("Booking Not Found");
+        return problem;
+    }
+
+    @ExceptionHandler(ForbiddenOperationException.class)
+    public ProblemDetail handleForbiddenOperation(ForbiddenOperationException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problem.setTitle("Forbidden Operation");
+        return problem;
+    }
+
+    @ExceptionHandler(InvalidBookingStateException.class)
+    public ProblemDetail handleInvalidBookingState(InvalidBookingStateException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+        problem.setTitle("Invalid Booking State");
+        return problem;
+    }
+
+    @ExceptionHandler(BookingNotAvailableException.class)
+    public ProblemDetail handleBookingNotAvailable(BookingNotAvailableException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problem.setTitle("Booking Not Available");
+        return problem;
+    }
+
 }

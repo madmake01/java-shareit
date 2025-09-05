@@ -1,5 +1,6 @@
 package ru.practicum.shareit.user.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.user.dto.UserCreateRequestDto;
@@ -23,11 +24,11 @@ public class UserServiceImpl implements UserService {
         );
     }
 
+    @Transactional
     @Override
     public UserResponseDto update(Long id, UserUpdateRequestDto request) {
         User user = getUserOrThrow(id);
         userMapper.updateEntity(request, user);
-        userRepository.update(user);
         return userMapper.toResponseDto(user);
     }
 

@@ -7,4 +7,5 @@ public record ItemUpdateDto(
         String description,
         Boolean available,
         ItemRequestIdDto request
-) {}
+) {
+}
